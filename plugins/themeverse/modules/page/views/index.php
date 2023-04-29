@@ -1,10 +1,16 @@
-<h1 class="page-title"><?php
-/**
-* Class and Function List:
-* Function list:
-* Classes list:
-*/
-echo TEXT_PLUGIN_TITLE ?> </h1>
+<?/***
+Themeverse - by Danut Hintariu https://github.com/danuthintariu
+Version 1.0.2
+-------------------------------
+//////Tested for versions//////
+---------------------
+Rukovoditel -> 3.3.1
+Extension   -> 3.3.1
+-------------------------------
+***/?>
+
+
+<h1 class="page-title"><?php echo TEXT_PLUGIN_TITLE ?></h1>
 
 <?php
 echo '<hr>';
@@ -13,54 +19,54 @@ echo user_class::get_user_info();
 
 echo '<hr>';
 
-//Calea catre skinuri
+// The path to skins on the local server
 $dir = $_SERVER['DOCUMENT_ROOT'] . '/css/skins';
 
-// Parcurge toate directoarele din calea specificată
-$found_skin = false; // Inițial nu s-a găsit niciun skin cu cuvântul "Themeverse" pe linia 2 a fișierului CSS
+// Browse all directories in the specified path
+$found_skin = false; // Initially no skin was found with the word "Themeverse" on line 2 of the CSS file
 $files = scandir($dir);
 foreach ($files as $file1)
  {
-  // Verifică dacă este un director valid
+  // Check if it is a valid directory
   if ($file1 != '.' && $file1 != '..' && is_dir($dir . '/' . $file1))
    {
-    // Verifică dacă directorul conține un fișier CSS cu același nume
+    // Checks if the directory contains a CSS file with the same name
     if (file_exists($dir . '/' . $file1 . '/' . $file1 . '.css'))
      {
-      // Deschide fișierul CSS și citește linia a treia
+      // Open the CSS file and read the second line
       $css_files = fopen($dir . '/' . $file1 . '/' . $file1 . '.css', 'r');
       $line_file = fgets($css_files);
       $line_file = fgets($css_files);
-      if (strpos($line_file, 'Themeverse') !== false)
+      if (strpos($line_file, 'Themeverse') !== false) // The word we were looking for on line 2
        {
-        // Cuvântul "Themeverse" a fost găsit pe linia 2 a fișierului CSS
-        // Setează variabila $result_path_file cu calea către fișierul CSS
-        $result_path_file = $dir . '/' . $file1 . '/' . $file1 . '.css'; //pentru .css
-        $result_path_img = $dir . '/' . $file1 . '/' . $file1 . '.png'; //pentru imagine
-        $found_skin = true; // A fost găsit cel puțin un skin cu cuvântul "Themeverse" pe linia 2 a fișierului CSS
+        // The word "Themeverse" was found on line 2 of the CSS file
+        // Set the variable $result_path_file with the path to the CSS file
+        $result_path_file = $dir . '/' . $file1 . '/' . $file1 . '.css';     //for .css
+        $result_path_img = $dir . '/' . $file1 . '/' . $file1 . '.png';      //for image
+        $found_skin = true; // Found at least one skin with the word "Themeverse" on line 2 of the CSS file
         $name_skin = $file1;
 
-        // Afișează Datele despre skin
+        // Show Skin Data
         if ($found_skin)
          {
           $url_dir = $result_path_file;
-          // Obținem numele fișierului și directorului din calea completă
+          // We get the filename and directory from the full path
           $filename_file = basename($url_dir);
           $dirname = basename(dirname($url_dir));
-          // Obținem poziția directorului /css/skins în URL
+          // We get the position of the /css/skins directory in the URL
           $pos = strpos($url_dir, '/css/skins');
           if ($pos !== false)
            {
-            // Obținem calea relativă la directorul /css/skins
+            // We get the path relative to the /css/skins directory
             $relative_path = substr($url_dir, $pos + strlen('/css/skins'));
-            // Afișăm calea relativă, împreună cu numele directorului și fișierului
-            //$result_url_dir = $dirname . $relative_path . '/' . $filename_file;
+            // We display the relative path along with the directory and file name
+            // $result_url_dir = $dirname . $relative_path . '/' . $filename_file;
             
            }
 
-          // Verificare versiune skin pe server
+          // Check skin version installed on the server
           $filename = $result_path_file;
-          $version_pattern = '/Version\s*(\d+\.\d+\.\d+)/i'; // expresie regulată pentru a căuta versiunea în formatul X.Y.Z
+          $version_pattern = '/Version\s*(\d+\.\d+\.\d+)/i'; // regular expression to search for version in X.Y.Z format
           $result = "";
 
           if (file_exists($filename))
@@ -69,22 +75,22 @@ foreach ($files as $file1)
             if (preg_match($version_pattern, $content_dir, $matches))
              {
               $version = $matches[1];
-              // Afiseaza versiunea curenta a fisierului css
+              // Displays the current version of the .css file on server
               $result = TEXT_PLUGIN_LATEST . ": $version";
              }
             else
              {
-              //Afiseaza daca nu sa putut gasi versiunea in fisierul css
+              // Display if the line with version in the .css file could not be found
               $result = TEXT_PLUGIN_CHECK_VFS . " $filename";
              }
            }
           else
            {
-            //Afiseaza daca fisierul css nu a putut fi gasit in folder
+            // Display if the .css file could not be found in the folder
             $result = TEXT_PLUGIN_FILE_CK . " $filename " . TEXT_PLUGIN_FILE_CKC;
            }
 
-   // verificare versiune pe git
+   // Version check on github
    $username = "danuthintariu";
    $repo = "Themeverse";
    $path = "css/skins" . $relative_path;
@@ -117,15 +123,16 @@ foreach ($files as $file1)
           echo '<div class="panel panel-default" style="max-width: 300px; width:100%; float: left; margin-right: 20px;">';
 
           echo '<div class="panel-heading">';
-          echo $name_skin;
+          echo $name_skin; // Display the title of the skin found on the server
           echo '</div>';
 
           echo '<div class="panel-body">';
+          // Display the skin image centered in the middle
           echo '<img src="../../../../css/skins/'. $name_skin .'/'. $name_skin.'.png" style="display: block; margin: 0 auto; width: 80px; height: 80px;"></br>';
 
           if ($version_git === $version)
            {
-            // Afiseaza versiunea cea mai noua de pe git
+            // Display the newest version from github
             echo $result;
            }
           else
@@ -133,17 +140,17 @@ foreach ($files as $file1)
 
             if ($version_git === null)
              {
-              // Mesaj afisat daca nu este gasita versiune pe git.
-              echo "<font color='red'>Nu a fost gasit pe git aceast skin</font></br>";
-              // Afiseaza versiunea curenta pe server
-              echo TEXT_PLUGIN_CURRENT . ": $version";
+              // Message displayed if the skin is not found on github
+              echo "<font color='red'>".TEXT_PLUGIN_GIT_NO."</font></br>";
+              // Display the current version on server
+              echo TEXT_PLUGIN_CURRENT.": $version";
              }
             else
              {
-              // Afiseaza cu rosu daca este o versiune mai noua pe git si numarul ei
-              echo "<font color='red'>" . TEXT_PLUGIN_NEW . ": $version_git</font></br>";
-              // Afiseaza versiunea curenta pe server
-              echo TEXT_PLUGIN_CURRENT . ": $version";
+              // Display in red if there is a newer version available on github
+              echo "<font color='red'>".TEXT_PLUGIN_NEW.": $version_git</font></br>";
+              // Display the current version on server
+              echo TEXT_PLUGIN_CURRENT.": $version";
              }
            }
 
@@ -153,8 +160,8 @@ foreach ($files as $file1)
          }
         else
          {
-
-          echo "Nu a fost găsit niciun skin instalat Themeverse in directorul $dir";
+          // Display this message if no Themeverse skin installed was found on server
+          echo TEXT_PLUGIN_NO_FILE. "$dir";
 
          }
 
