@@ -1,16 +1,86 @@
 <?/***
 Themeverse - by Danut Hintariu https://github.com/danuthintariu
-Version 1.0.2
+Version 1.0.3
 -------------------------------
 //////Tested for versions//////
 ---------------------
 Rukovoditel -> 3.3.1
 Extension   -> 3.3.1
 -------------------------------
-***/?>
+***/
+   // Version check on github
+   $usernames = "danuthintariu";
+   $repos = "Themeverse";
+   $paths = "plugins/themeverse/modules/page/views/index.php";
+
+   $url_git_th = "https://api.github.com/repos/$usernames/$repos/contents/$paths";
+   $optionsq = array(
+     'http' => array(
+      'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\n" . 
+                  "Accept: application/vnd.github.v3+json\r\n"
+       )
+     );
+
+          $contextq = stream_context_create($optionsq);
+          $responseq = file_get_contents($url_git_th, false, $contextq);
+          $dataz = json_decode($responseq);
+
+          $content_th = base64_decode($dataz->content);
+          $lines_th = explode("\n", $content_th);
+
+          $version_th_git = null;
+          foreach ($lines_th as $line_th)
+           {
+            if (strpos($line_th, 'Version ') === 0)
+             {
+              $version_th_git = trim(substr($line_th, 8));
+              break;
+             }
+           }
 
 
-<h1 class="page-title"><?php echo TEXT_PLUGIN_TITLE ?></h1>
+
+            // Check themeverse version installed on the server
+            $filename_th = $_SERVER['DOCUMENT_ROOT'] . '/plugins/themeverse/modules/page/views/index.php';
+            $version_pattern_th = '/Version\s*(\d+\.\d+\.\d+)/i'; // regular expression to search for version in X.Y.Z format
+            $result_th = "";         
+           if (file_exists($filename_th))
+           {
+            $content_dir_th = file_get_contents($filename_th);
+            if (preg_match($version_pattern_th, $content_dir_th, $matches_th))
+             {
+              $version_th = $matches_th[1];
+              // Displays the current version of the .css file on server
+              $result_th = TEXT_PLUGIN_LATEST . ": $version_th";
+             }
+            else
+             {
+              // Display if the line with version in the intex.php file could not be found
+              $result_th = TEXT_PLUGIN_CHECK_VFS . " $filename_th";
+             }
+           }
+          else
+           {
+            // Display if the index.php file could not be found in the folder
+            $result_th = TEXT_PLUGIN_FILE_CK . " $filename_th " . TEXT_PLUGIN_FILE_CKC;
+           }
+
+
+$result_th_final = "";
+if ($version_th_git === $version_th)
+       {
+         $result_th_final = $result_th;
+       }
+       else
+       {
+         $result_th_final = "<font color='red'>".TEXT_PLUGIN_GIT_NEW." $version_th_git</font>";
+       }
+
+?>
+
+
+<h1 class="page-title"><?php echo TEXT_PLUGIN_TITLE." $version_th";?></h1>
+<p><?php echo $result_th_final;?></p>
 
 <?php
 echo '<hr>';
@@ -132,25 +202,27 @@ foreach ($files as $file1)
 
           if ($version_git === $version)
            {
-            // Display the newest version from github
-            echo $result;
+            // Display the newest version or error if skin exist and are any problems
+            echo "$result</br>";
+            // Display the current version on GitHub
+            echo TEXT_PLUGIN_GIT_CUR.": $version_git";
            }
           else
            {
 
             if ($version_git === null)
              {
-              // Message displayed if the skin is not found on github
-              echo "<font color='red'>".TEXT_PLUGIN_GIT_NO."</font></br>";
               // Display the current version on server
-              echo TEXT_PLUGIN_CURRENT.": $version";
+              echo TEXT_PLUGIN_CURRENT.": $version</br>";
+              // Message displayed if the skin is not found on github
+              echo "<font color='red'>".TEXT_PLUGIN_GIT_NO."</font>";  
              }
             else
              {
-              // Display in red if there is a newer version available on github
-              echo "<font color='red'>".TEXT_PLUGIN_NEW.": $version_git</font></br>";
               // Display the current version on server
-              echo TEXT_PLUGIN_CURRENT.": $version";
+              echo TEXT_PLUGIN_CURRENT.": $version</br>";
+              // Display in red if there is a newer version available on github
+              echo "<font color='red'>".TEXT_PLUGIN_NEW.": $version_git</font>";
              }
            }
 
