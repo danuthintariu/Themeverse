@@ -51,7 +51,7 @@ Extension   -> 3.3.1
              {
               $version_th = $matches_th[1];
               // Displays the current version of the .css file on server
-              $result_th = TEXT_PLUGIN_LATEST . ": $version_th";
+              $result_th = "";
              }
             else
              {
