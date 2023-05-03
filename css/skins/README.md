@@ -1,7 +1,7 @@
 # Themeverse
 Skins for Rukovoditel
 
-To install the skin, you just need to copy your favorite skin into css/skins
+To install the skin, you just need to copy your favorite skin into **css/skins**
 
 You can find more details here https://docs.rukovoditel.net/index.php?p=110
 
