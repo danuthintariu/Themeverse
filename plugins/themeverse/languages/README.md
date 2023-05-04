@@ -1,5 +1,8 @@
 # Themeverse
-Currently available in: English, Romanian, Italian
+Currently available in: 
+![United Kingdom](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png "United Kingdom") English, 
+![Romania](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ro.png "Romania") Romanian, 
+![Italy](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/it.png "Italy") Italian
 
 ## Translation
 * You can translate this plugin into your favorite language here: https://crowdin.com/project/themeverse
