@@ -20,3 +20,4 @@ define('AVAILABLE_PLUGINS','ext,themeverse');
 ---
 
 ![GitHub](https://img.shields.io/github/license/danuthintariu/Dark_mode)
+[![Crowdin](https://badges.crowdin.net/themeverse/localized.svg)](https://crowdin.com/project/themeverse)
