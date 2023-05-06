@@ -1,6 +1,6 @@
 <?/***
 Themeverse - by Danut Hintariu https://github.com/danuthintariu
-Version 1.0.3
+Version 1.0.4
 -------------------------------
 //////Tested for versions//////
 ---------------------
@@ -50,7 +50,7 @@ Extension   -> 3.3.1
             if (preg_match($version_pattern_th, $content_dir_th, $matches_th))
              {
               $version_th = $matches_th[1];
-              // Displays the current version of the .css file on server
+              // Displays the current version of the intex.php file on server behind the title only (so this is left blank no point to be double displayed)
               $result_th = "";
              }
             else
@@ -78,8 +78,9 @@ if ($version_th_git === $version_th)
 
 ?>
 
-
+<!-- Display the name of plugin and the version behind -->
 <h1 class="page-title"><?php echo TEXT_PLUGIN_TITLE." $version_th";?></h1>
+<!-- Display if any new version is found on GitHub or any error occure -->
 <p><?php echo $result_th_final;?></p>
 
 <?php
