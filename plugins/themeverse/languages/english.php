@@ -15,3 +15,4 @@ define('TEXT_PLUGIN_GIT_NEW','New version of Themeverse is available on GitHub')
 define('TEXT_USER_ID','Your User ID');
 define('TEXT_USER_ACCG_ID','User Access Group ID');
 define('TEXT_USER_NAME','Your Username');
+define('TEXT_USER_SKIN','Skin used');
