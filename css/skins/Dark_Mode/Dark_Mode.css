@@ -1,6 +1,6 @@
 /***
 Themeverse - Dark_Mode
-Version 1.1.9
+Version 1.1.10
 -------------------------------
 //////Tested for versions//////
 ---------------------
@@ -313,7 +313,29 @@ ul.listing-mobile > li {
   -webkit-filter: invert(80%);
   color: #222;
 }
-
+.listing_highlight_31_3, 
+.listing_highlight_31_3 > td, 
+.table-striped > tbody > .listing_highlight_31_3:nth-child(odd) > td, 
+ul.listing-grid > li.listing_highlight_31_3, 
+ul.listing-mobile > li.listing_highlight_31_3 {
+  color: #222;
+}
+.table-hover > tbody > .listing_highlight_31_3:hover > td{                        
+  background-color: #4f4f5f !important;
+  color: #c1c1c1;
+}  
+.listing_highlight_39_1, 
+.listing_highlight_39_1>td, 
+.table-striped>tbody>.listing_highlight_39_1:nth-child(odd)>td,
+ul.listing-grid>li.listing_highlight_39_1,
+ul.listing-mobile>li.listing_highlight_39_1
+{
+  color: #222;      
+} 
+.table-hover > tbody > .listing_highlight_39_1:hover > td{                        
+  background-color: #4f4f5f !important;
+  color: #c1c1c1;
+} 
 
 .fieldtype-image-container {
   background-color: #fff;
@@ -634,6 +656,16 @@ div.button span {
   color: #c1c1c1;
 }
 
+.chats li.out .message,
+.chats li.in .message{
+  border-color:  #3d3e43;
+}
+.chats li.out .message {
+  background: #292a2d;
+}
+.chats li.in .message {
+  background: #333437;
+}
 
 .modal {
   background-color: #292a2d;
